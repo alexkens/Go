@@ -2,17 +2,24 @@ package board;
 
 import java.util.ArrayList;
 
-import stones.Stones;
+import stones.Stone;
 
 public class Board {
    
-    Stones[] field;
-    Color turn = Color.BLACK;
-    int turnCounter = 1;
+    public int fieldNumber;
+    public Stone[] field;
+    public Color turn = Color.BLACK;
+    public int turnCounter = 1;
 
     public Board(int number) {
 
-        this.field = new Stones[number*number];
+        this.fieldNumber = number;
+        this.field = new Stone[number*number];
+
+        int n = number * number;
+        for(int i=0; i < n; i++) {
+            this.field[i] = new Stone();
+        }
 
     }
 
@@ -36,6 +43,10 @@ public class Board {
 
     }
 
+    public void setToken(Stone stone, int pos) {
+        this.field[pos] = stone;
+    }
+
 
 
     public void endGame() {
@@ -50,5 +61,25 @@ public class Board {
 
     public void territory() {}
     public void komi() {} // points added to the score of the player with white stones as compensation for playing second
+
+
+
+
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        int n = this.fieldNumber * this.fieldNumber;
+        int fieldNumber = this.fieldNumber;
+
+        System.out.println("Board Representation");
+        System.out.println();
+
+        for(int i=0; i < n; i++) {
+            System.out.print(this.field[i].toString());
+            if(i != 0 && ((i+1) % fieldNumber == 0)) {
+                System.out.println();
+            }
+        }
+        return str.toString();
+    }
 
 }
